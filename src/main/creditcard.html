@@ -1,0 +1,55 @@
+<html>
+<header>
+<script type="text/javascript">
+function sendJson() {
+	
+	var username = document.getElementById('username');
+	var cardnumber = document.getElementById('cardnumber');
+	var limit = document.getElementById('limit');
+	
+	var url = "http://localhost:8080/creditcard/add";
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader('Content-type','application/json');
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4 && xhr.stats === 200) {
+			var json = JSON.parse(xhr.responseText);
+			console.log(json);
+		}
+	}
+	var data = JSON.stringify({"username": username.value, "cardnumber": cardnumber, "limit": limit.value});
+	xhr.send(data);
+}
+</script>
+</header>
+<body>
+      <form>
+          <div id="legend">
+            <legend class="">Credit Card System</legend>
+          </div>
+          
+          <div id="legend">
+            <legend class="">Add</legend>
+          </div>
+      <table>
+      <div id="legend">
+            <legend class="">Username</legend>
+          </div>
+      <tr><input type="text" id="username"></tr></br>
+      
+      <div id="legend">
+            <legend class="">Card number</legend>
+          </div>
+      <tr><input type="text" maxlength="19" id="cardnumber"></tr></br>
+      
+      <div id="legend">
+            <legend class="">Limit</legend>
+          </div>
+      <tr><input type="text" id="limit"></tr></br>
+      <tr><button onclick="sendJson()">Add</button></tr>
+      </table> 
+      </form>
+      </body>
+</html>
+      
